@@ -14,10 +14,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: configure
-      run: ./configure --disable-x86asm
+      run: |
+        mkdir install
+        ./configure --prefix=${PWD}install --disable-x86asm
     - name: make
-      run: make
+      run: make -j4
     - name: make check
       run: make check
-    - name: make distcheck
-      run: make distcheck
+    - name: make install
+      run: make install
